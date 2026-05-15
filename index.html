@@ -31,106 +31,58 @@ inset:0;
 z-index:0;
 }
 
-/* INTRO DOORS */
-
 .intro{
-
 position:fixed;
-
 inset:0;
-
 z-index:9999;
-
 overflow:hidden;
-
 }
 
 .door{
-
 position:absolute;
-
 top:0;
-
 width:50%;
-
 height:100%;
-
 background:#050505;
-
 display:flex;
-
 align-items:center;
-
 justify-content:center;
-
 transition:transform 2.8s cubic-bezier(.77,0,.18,1);
-
 }
 
 .left-door{
-
 left:0;
-
 border-right:1px solid rgba(255,255,255,0.05);
-
 }
 
 .right-door{
-
 right:0;
-
 border-left:1px solid rgba(255,255,255,0.05);
-
 }
 
 .door-text{
-
 font-family:'Inter',sans-serif;
-
 font-size:13px;
-
 letter-spacing:8px;
-
 color:rgba(255,255,255,0.45);
-
 white-space:nowrap;
-
 }
 
-/* MOBILE FIX */
-
 .left-text{
-
 transform:translateX(12px);
-
 }
 
 .right-text{
-
 transform:translateX(-12px);
-
 }
 
-/* OPENING */
-
 .intro.hide .left-door{
-
 transform:translateX(-100%);
-
 }
 
 .intro.hide .right-door{
-
 transform:translateX(100%);
-
 }
-
-@keyframes flicker{
-0%,100%{opacity:0.3;}
-50%{opacity:0.8;}
-}
-
-/* MAIN */
 
 .gallery{
 position:relative;
@@ -157,8 +109,6 @@ font-size:11px;
 opacity:0.35;
 }
 
-/* GLOW */
-
 .glow{
 position:absolute;
 width:700px;
@@ -177,8 +127,6 @@ z-index:1;
 50%{transform:scale(1.08);}
 }
 
-/* FRAME */
-
 .frame-wrap{
 perspective:1800px;
 z-index:5;
@@ -187,6 +135,7 @@ z-index:5;
 .frame{
 width:340px;
 max-width:85vw;
+cursor:pointer;
 padding:12px;
 background:rgba(18,18,18,0.95);
 border:1px solid rgba(255,255,255,0.08);
@@ -208,9 +157,8 @@ animation:float 7s ease-in-out infinite;
 width:100%;
 display:block;
 filter:grayscale(100%) contrast(105%) brightness(95%);
+pointer-events:none;
 }
-
-/* PLAQUE */
 
 .plaque{
 margin-top:24px;
@@ -248,8 +196,6 @@ letter-spacing:5px;
 opacity:0.35;
 }
 
-/* WHISPERS */
-
 .whisper{
 position:fixed;
 font-family:'Cormorant Garamond',serif;
@@ -258,58 +204,28 @@ color:rgba(255,255,255,0.82);
 pointer-events:none;
 text-shadow:0 0 20px rgba(255,255,255,0.12);
 z-index:99999;
-
 opacity:0;
-
 animation:fadeWhisper 4s ease forwards;
 }
 
 @keyframes fadeWhisper{
-
 0%{
 opacity:0;
-transform:
-translateY(20px)
-rotate(-6deg)
-scale(0.96);
+transform:translateY(20px) rotate(-6deg) scale(0.96);
 }
-
-20%{
-opacity:0.95;
-}
-
-80%{
-opacity:0.9;
-}
-
+20%{opacity:0.95;}
+80%{opacity:0.9;}
 100%{
 opacity:0;
-transform:
-translateY(-35px)
-rotate(6deg)
-scale(1.02);
+transform:translateY(-35px) rotate(6deg) scale(1.02);
 }
-
 }
 
 @media(max-width:600px){
-
-.title{
-font-size:30px;
-}
-
-.medium{
-font-size:16px;
-}
-
-.desc{
-font-size:13px;
-}
-
-.whisper{
-font-size:18px;
-}
-
+.title{font-size:30px;}
+.medium{font-size:16px;}
+.desc{font-size:13px;}
+.whisper{font-size:18px;}
 }
 
 </style>
@@ -319,58 +235,45 @@ font-size:18px;
 <canvas id="dust"></canvas>
 
 <div class="intro" id="intro">
-
   <div class="door left-door">
-    <div class="door-text left-text">
-      CURATOR
-    </div>
+    <div class="door-text left-text">CURATOR</div>
   </div>
-
   <div class="door right-door">
-    <div class="door-text right-text">
-      ACCESS GRANTED</div>
+    <div class="door-text right-text">ACCESS GRANTED</div>
   </div>
-
 </div>
 
 <div class="gallery" id="gallery">
-
-<div class="top-note">THE BEAKS DIGITAL EXHIBITION</div>
-
-<div class="glow"></div>
-
-<div class="frame-wrap">
-<div class="frame" id="frame">
-<img src="thelastobserver.jpg" alt="The Last Observer">
-</div>
-</div>
-
-<div class="plaque">
-<div class="title">THE LAST OBSERVER</div>
-<div class="medium">Graphite on Paper, 2026</div>
-<div class="desc">
-A creature that learned silence so well<br>
-it forgot its original voice.
-</div>
-<div class="signature">INSPIRED BY THEBEAKSART</div>
-</div>
-
+  <div class="top-note">THE BEAKS DIGITAL EXHIBITION</div>
+  <div class="glow"></div>
+  <div class="frame-wrap">
+    <div class="frame" id="frame">
+      <img src="thelastobserver.jpg" alt="The Last Observer">
+    </div>
+  </div>
+  <div class="plaque">
+    <div class="title">THE LAST OBSERVER</div>
+    <div class="medium">Graphite on Paper, 2026</div>
+    <div class="desc">
+      A creature that learned silence so well<br>
+      it forgot its original voice.
+    </div>
+    <div class="signature">INSPIRED BY THEBEAKSART</div>
+  </div>
 </div>
 
 <script>
 
-/* INTRO */
-
+/* DOORS */
 const intro = document.getElementById('intro');
 const gallery = document.getElementById('gallery');
 
 setTimeout(() => {
-intro.classList.add('hide');
-gallery.classList.add('show');
+  intro.classList.add('hide');
+  gallery.classList.add('show');
 }, 3000);
 
 /* WHISPERS */
-
 const frame = document.getElementById('frame');
 
 const whispers = [
@@ -382,45 +285,39 @@ const whispers = [
 ];
 
 let whisperIndex = 0;
+let whisperActive = false;
 
-frame.addEventListener('click', () => {
+function spawnWhisper() {
+  if (whisperActive) return;
+  whisperActive = true;
 
   const whisper = document.createElement('div');
-
   whisper.className = 'whisper';
-
   whisper.innerText = whispers[whisperIndex];
 
-  /* RANDOM POSITIONS */
-
-  whisper.style.left =
-    Math.random() * 60 + 15 + '%';
-
-  whisper.style.top =
-    Math.random() * 60 + 15 + '%';
+  whisper.style.left = Math.random() * 60 + 15 + '%';
+  whisper.style.top = Math.random() * 60 + 15 + '%';
 
   document.body.appendChild(whisper);
 
-  /* REMOVE */
-
   setTimeout(() => {
-
     whisper.remove();
-
+    whisperActive = false;
   }, 4000);
 
-  /* NEXT */
-
   whisperIndex++;
-
-  if(whisperIndex >= whispers.length){
+  if (whisperIndex >= whispers.length) {
     whisperIndex = 0;
   }
+}
 
+frame.addEventListener('click', spawnWhisper);
+frame.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  spawnWhisper();
 });
 
 /* DUST */
-
 const canvas = document.getElementById('dust');
 const ctx = canvas.getContext('2d');
 
@@ -429,42 +326,33 @@ canvas.height = window.innerHeight;
 
 let particles = [];
 
-for(let i = 0; i < 160; i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-speed:(Math.random()*0.5)+0.1
-});
+for (let i = 0; i < 160; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2,
+    speed: (Math.random() * 0.5) + 0.1
+  });
 }
 
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle = 'rgba(255,255,255,0.08)';
-
-particles.forEach(p => {
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-
-p.y += p.speed;
-
-if(p.y > canvas.height){
-p.y = 0;
-p.x = Math.random()*canvas.width;
-}
-
-});
-
-requestAnimationFrame(animate);
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  particles.forEach(p => {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+    p.y += p.speed;
+    if (p.y > canvas.height) {
+      p.y = 0;
+      p.x = Math.random() * canvas.width;
+    }
+  });
+  requestAnimationFrame(animate);
 }
 
 animate();
 
 </script>
-
 </body>
 </html>
